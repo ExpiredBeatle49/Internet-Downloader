@@ -4,19 +4,27 @@ import os
 
 sg.theme('dark grey 9')
 
-Link = 'https://pastebin.com/raw/TrhGpS3E'
-paste = 'https://pastebin.com/raw/Xa2Ea4rD'
+Examples = 'https://pastebin.com/raw/TrhGpS3E'
+Uninstall = 'https://pastebin.com/raw/RV7hBhm7'
+Main = 'https://pastebin.com/raw/Xa2Ea4rD'
 CURR_DIR = os.path.dirname(os.path.realpath(__file__))
 
-layout = [[sg.Text(size=(30,1), key='-Download-')],
-          [sg.Button('Start Download')]]
-
-window = sg.Window('Setup', layout)
-
+layout = [[sg.Text(size=(40,1), key='-OUTPUT-')],
+          [sg.Button('Start Installation'), sg.Button('Close')]]
+ 
+window = sg.Window('Uninstaller', layout)
 event, values = window.read()
 
-window['-Download-'].update("Downloading files...")
-os.mkdir(str(CURR_DIR) + "/Downloads")
-wget.download(Link, str(CURR_DIR) + "\Downloads\Link Examples.txt")
-wget.download(paste, str(CURR_DIR) + "\Main.py")
-window['-Download-'].update("Done, you may now close the window.")
+while True:
+
+    if event == 'Start Installation':
+        window['-OUTPUT-'].update('Starting Installation...')
+        os.mkdir(str(CURR_DIR) + "/Downloads")
+        wget.download(Examples, str(CURR_DIR) + "\Downloads\Link Examples.txt")
+        wget.download(Main, str(CURR_DIR) + "\Main.py")
+        wget.download(Uninstall, str(CURR_DIR) + "/Uninstall.py")
+        window['-OUTPUT-'].update('Done with the Installation')
+
+    if event == sg.WINDOW_CLOSED or event == 'Close':
+        window.close()
+        break
