@@ -1,9 +1,10 @@
-def run():
-    
-    import PySimpleGUI as sg
-    import Youtube as Yt
-    import wget
+import PySimpleGUI as sg
+import youtube
+import os.path
+import wget
+import os
 
+def run():
     sg.theme('dark grey 9')
 
     main = [[sg.Text("What's the url?")],
@@ -18,6 +19,9 @@ def run():
     window = sg.Window('Internet Downloader', main)
     event, values = window.read()
 
+    CURR_DIR = os.path.dirname(os.path.realpath(__file__))
+    PARENT = os.path.dirname(CURR_DIR)
+
     while True:
 
         if event == 'Exit' or event == sg.WINDOW_CLOSED:
@@ -26,10 +30,12 @@ def run():
         
         if event == 'Youtube Mode':
             window.close()
-            Yt.run()
+            youtube.run()
             break
             
         if event == 'Start Download':
             window['-OUTPUT-'].update('Starting download...')
-            wget.download(values['-INPUT-0'], str(CURR_DIR) + '/Downloads/' + values['-INPUT-1'] + "." + values['-INPUT-2'])
+            wget.download(values['-INPUT-0'], str(PARENT) + '/Downloads/' + values['-INPUT-1'] + "." + values['-INPUT-2'])
             window['-OUTPUT-'].update('Done downloading')
+            window.close()
+            break
