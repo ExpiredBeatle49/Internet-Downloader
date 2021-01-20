@@ -35,7 +35,7 @@ def run():
             
         if event == 'Start Download':
             window['-OUTPUT-'].update('Starting download...')
-            wget.download(values['-INPUT-0'], str(PARENT) + '/Downloads/' + values['-INPUT-1'] + "." + values['-INPUT-2'])
+            wget.download(values['-INPUT-0'], str(CURR_DIR) + '/Downloads/' + values['-INPUT-1'] + "." + values['-INPUT-2'])
             window['-OUTPUT-'].update('Done downloading')
             window.close()
             break
